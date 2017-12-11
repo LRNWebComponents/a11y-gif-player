@@ -19,22 +19,106 @@ A LRN element
       :host {
         display: block;
       }
+      :host #preload {
+        display: none;
+      }
     </style>
-    <h2>[[title]]</h2>
+    <paper-button id="gifbutton" aria-controls="gif" tabindex="0">
+      <img id="gif" width$="[[width]]" height$="[[height]]" 
+      alt$="[[alt]]" 
+      src$="[[srcWithoutAnimation]]">
+    </paper-button>
+    <img id="preload" src$="[[src]]" hidden>
+    <iron-a11y-keys id="a11y" keys="enter"
+    on-keys-pressed="toggleAnimation"></iron-a11y-keys>
   </template>
 
   <script>
     Polymer({
 
       is: 'a11y-gif-player',
+      listeners: {
+        'gifbutton.tap': 'toggleAnimation'
+      },
 
-      properties: {
-        title: {
+      properties: {    
+        /**
+        * Source of the animated gif
+        */ 
+        src: {
           type: String,
-          value: 'a11y-gif-player',
+          value: null,
+        },       
+        /**
+        * Source of a version that is not animated
+        */ 
+        srcWithoutAnimation: {
+          type: String,
+          value: null,
+        },   
+        /**
+        * Alt text of the gif
+        */ 
+        alt: {
+          type: String,
+          value: null,
+        },    
+        /**
+        * Optional: the width of the gif
+        */  
+        width: {
+          type: String,
+          value: null,
+        },    
+        /**
+        * Optional: the height of the gif
+        */ 
+        height: {
+          type: String,
+          value: null,
+        },   
+        /**
+        * Play/Pause button
+        */ 
+        target: {
+          type: Object,
+          value: null,
         },
       },
 
+      ready: function(){
+        this.stop();
+      },
+      /**
+       * plays the animation regarless of previous state
+       */
+      play: function(){
+        this.__stopped = true;
+        this.toggleAnimation();
+      },
+
+      /**
+       * stops the animation regarless of previous state
+       */
+      stop: function(){
+        this.__stopped = false;
+        this.toggleAnimation();
+      },
+
+      /**
+       * toggles the animation based on current state
+       */
+      toggleAnimation: function(){
+        if(this.__stopped) {
+          this.__stopped = false;
+          this.$.gif.src = this.src;
+          this.$.gif.alt = this.alt + ' (Stop animation.)';
+        } else {
+          this.__stopped = true;
+          this.$.gif.src = this.srcWithoutAnimation;
+          this.$.gif.alt = this.alt + ' (Play animation.)';
+        }
+      }
     });
   </script>
 </dom-module>
