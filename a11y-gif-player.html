@@ -1,5 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
-
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../iron-a11y-keys/iron-a11y-keys.html">
 <!--
 `a11y-gif-player`
 A LRN element
@@ -19,17 +20,23 @@ A LRN element
       :host {
         display: block;
       }
+      :host #gifbutton:active,
+      :host #gifbutton:focus,
+      :host #gifbutton:hover {
+        cursor: pointer;
+        outline: 1px solid blue;
+      }
       :host #preload {
         display: none;
       }
     </style>
-    <paper-button id="gifbutton" aria-controls="gif" tabindex="0">
+    <div id="gifbutton" aria-role="button" aria-controls="gif" tabindex="0">
       <img id="gif" width$="[[width]]" height$="[[height]]" 
       alt$="[[alt]]" 
       src$="[[srcWithoutAnimation]]">
-    </paper-button>
+    </div>
     <img id="preload" src$="[[src]]" hidden>
-    <iron-a11y-keys id="a11y" keys="enter"
+    <iron-a11y-keys id="a11y" keys="enter" target$="[[target]]"
     on-keys-pressed="toggleAnimation"></iron-a11y-keys>
   </template>
 
@@ -88,6 +95,7 @@ A LRN element
 
       ready: function(){
         this.stop();
+        this.target = this.$.gifbutton;
       },
       /**
        * plays the animation regarless of previous state
