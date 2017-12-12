@@ -132,15 +132,20 @@ A LRN element
        * toggles the animation based on current state
        */
       toggleAnimation: function(){
-        if(this.__stopped) {
+        if (this.__stopped) {
           this.__stopped = false;
           this.$.svg.style.visibility = "hidden";
-          this.$.gif.src = this.src;
+          if (this.src != null) {
+            this.$.gif.src = this.src;
+          }
           this.$.gif.alt = this.alt + ' (Stop animation.)';
-        } else {
+        }
+        else {
           this.__stopped = true;
           this.$.svg.style.visibility = "visible";
-          this.$.gif.src = this.srcWithoutAnimation;
+          if (this.srcWithoutAnimation != null) {
+            this.$.gif.src = this.srcWithoutAnimation;
+          }
           this.$.gif.alt = this.alt + ' (Play animation.)';
         }
       },
