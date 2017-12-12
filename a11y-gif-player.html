@@ -19,7 +19,15 @@ A LRN element
   <template>
     <style>
       :host {
-        display: block;
+        display: inline-block;
+      }
+      :host #gifbutton > * {
+        position: relative;
+      }
+      :host #svg {
+        position: absolute;
+        top: 35%;
+        left: 35%;
       }
       :host #gifbutton:active,
       :host #gifbutton:focus,
@@ -31,10 +39,15 @@ A LRN element
         display: none;
       }
     </style>
-    <div id="gifbutton" aria-role="button" aria-controls="gif" tabindex="0">
-      <img id="gif" width$="[[width]]" height$="[[height]]" 
-      alt$="[[alt]]" 
-      src$="[[srcWithoutAnimation]]">
+    <div id="gifbutton" aria-role="button" aria-controls="gif" tabindex="0"  width$="[[width]]" height$="[[height]]">
+      <div>
+        <img id="gif" width$="[[width]]" height$="[[height]]" alt$="[[alt]]" src$="[[srcWithoutAnimation]]">
+        <svg id="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"  width="30%" height="30%">
+          <g opacity=".5">
+            <polygon points="30,20 30,180 170,100" fill="#000000" stroke="#ffffff" stroke-width="15px"/>
+          </g>
+        </svg>
+      </div>
     </div>
     <img id="preload" src$="[[src]]" hidden>
     <iron-a11y-keys id="a11y" keys="enter" target$="[[target]]"
@@ -63,6 +76,13 @@ A LRN element
         */ 
         srcWithoutAnimation: {
           type: String,
+          value: null,
+        },   
+        /**
+        * Show a play button when stopped? Default is false.
+        */ 
+        showPlayButton: {
+          type: Boolean,
           value: null,
         },   
         /**
@@ -121,10 +141,16 @@ A LRN element
       toggleAnimation: function(){
         if(this.__stopped) {
           this.__stopped = false;
+          this.$.svg.style.visibility = "hidden";
           this.$.gif.src = this.src;
           this.$.gif.alt = this.alt + ' (Stop animation.)';
         } else {
           this.__stopped = true;
+          if(this.showPlayButton) {
+            this.$.svg.style.visibility = "visible";
+          } else {
+            this.$.svg.style.visibility = "hidden";
+          }
           this.$.gif.src = this.srcWithoutAnimation;
           this.$.gif.alt = this.alt + ' (Play animation.)';
         }
