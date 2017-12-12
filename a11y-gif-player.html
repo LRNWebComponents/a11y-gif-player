@@ -64,45 +64,45 @@ A LRN element
         'gifbutton.tap': 'toggleAnimation'
       },
 
-      properties: {    
+      properties: {
         /**
         * Source of the animated gif
-        */ 
+        */
         src: {
           type: String,
           value: null,
-        },       
+        },
         /**
         * Source of a version that is not animated
-        */ 
+        */
         srcWithoutAnimation: {
           type: String,
           value: null,
-        },  
+        },
         /**
         * Alt text of the gif
-        */ 
+        */
         alt: {
           type: String,
           value: null,
-        },    
+        },
         /**
         * Optional: the width of the gif
-        */  
+        */
         width: {
           type: String,
-          value: null,
-        },    
+          value: '100%',
+        },
         /**
         * Optional: the height of the gif
-        */ 
+        */
         height: {
           type: String,
-          value: null,
-        },   
+          value: '100%',
+        },
         /**
         * Play/Pause button
-        */ 
+        */
         target: {
           type: Object,
           value: null,
@@ -201,6 +201,32 @@ A LRN element
               },
             ],
             'configure': [
+              {
+                'property': 'src',
+                'title': 'Animated GIF',
+                'description': 'The URL to your animated GIF.',
+                'inputMethod': 'textfield',
+                'icon': 'link',
+                'validationType': 'url',
+                'required': true,
+              },
+              {
+                'property': 'srcWithoutAnimation',
+                'title': 'Still Image',
+                'description': 'The URL to a still image version of your GIF.',
+                'inputMethod': 'textfield',
+                'icon': 'link',
+                'validationType': 'url',
+                'required': true,
+              },
+              {
+                'property': 'alt',
+                'title': 'Alt Text',
+                'description': 'Alternative text for the image. (Required for access',
+                'inputMethod': 'textfield',
+                'icon': 'text-field',
+                'required': true,
+              },
               {
                 'property': 'width',
                 'title': 'Width',
