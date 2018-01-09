@@ -42,8 +42,8 @@ A LRN element
     </style>
     <div id="gifbutton" aria-role="button" aria-controls="gif" tabindex="0" width$="[[width]]" height$="[[height]]">
       <div>
-        <iron-image id="gif" width$="[[width]]" height$="[[height]]" style="background-color: lightgray;"
-        preload fade alt$="[[alt]]" src$="[[srcWithoutAnimation]]">
+        <iron-image id="gif" width$="[[width]]" height$="[[height]]" style$="width:[[width]]; height:[[height]]; background-color: lightgray;"
+        preload fade alt$="[[alt]]" src$="[[srcWithoutAnimation]]"></iron-image>
         <svg id="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"  width="30%" height="30%">
           <g opacity=".5">
             <polygon points="30,20 30,180 170,100" fill="#000000" stroke="#ffffff" stroke-width="15px"/>
@@ -52,7 +52,7 @@ A LRN element
         </svg>
       </div>
     </div>
-    <iron-image id="preload" src$="[[src]]" hidden>
+    <iron-image id="preload" src$="[[src]]" hidden></iron-image>
     <iron-a11y-keys id="a11y" keys="enter" target$="[[target]]"
     on-keys-pressed="toggleAnimation"></iron-a11y-keys>
   </template>
