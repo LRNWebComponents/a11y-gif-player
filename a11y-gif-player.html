@@ -40,10 +40,14 @@ A LRN element
         display: none;
       }
     </style>
-    <div id="gifbutton" aria-role="button" aria-controls="gif" tabindex="0"  width$="[[width]]" height$="[[height]]">
+    <div id="gifbutton" aria-role="button" aria-controls="gif" tabindex="0" width$="[[width]]" height$="[[height]]">
       <div>
+<<<<<<< HEAD
         <iron-image id="gif" width$="[[width]]" height$="[[height]]" style="background-color: lightgray;"
         sizing="cover" preload fade sizing="cover" alt$="[[alt]]" src$="[[srcWithoutAnimation]]">
+=======
+        <img id="gif" width$="[[width]]" height$="[[height]]" alt$="[[alt]]" src$="[[srcWithoutAnimation]]" />
+>>>>>>> 4cf573e30e041e175a71a29319997a3573d7f589
         <svg id="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"  width="30%" height="30%">
           <g opacity=".5">
             <polygon points="30,20 30,180 170,100" fill="#000000" stroke="#ffffff" stroke-width="15px"/>
@@ -52,8 +56,13 @@ A LRN element
         </svg>
       </div>
     </div>
+<<<<<<< HEAD
     <iron-image id="preload" src$="[[src]]" hidden>
     <iron-a11y-keys id="a11y" keys="enter" target$="[[target]]"
+=======
+    <img id="preload" src$="[[src]]" hidden />
+    <iron-a11y-keys id="a11y" keys="enter" target="[[target]]"
+>>>>>>> 4cf573e30e041e175a71a29319997a3573d7f589
     on-keys-pressed="toggleAnimation"></iron-a11y-keys>
   </template>
 
@@ -66,48 +75,47 @@ A LRN element
         'gifbutton.tap': 'toggleAnimation'
       },
 
-      properties: {    
+      properties: {
         /**
         * Source of the animated gif
-        */ 
+        */
         src: {
           type: String,
           value: null,
-        },       
+        },
         /**
         * Source of a version that is not animated
-        */ 
+        */
         srcWithoutAnimation: {
           type: String,
           value: null,
-        },  
+        },
         /**
         * Alt text of the gif
-        */ 
+        */
         alt: {
           type: String,
           value: null,
-        },    
+        },
         /**
         * Optional: the width of the gif
-        */  
+        */
         width: {
           type: String,
-          value: null,
-        },    
+          value: '100%',
+        },
         /**
         * Optional: the height of the gif
-        */ 
+        */
         height: {
           type: String,
-          value: null,
-        },   
+          value: '100%',
+        },
         /**
         * Play/Pause button
-        */ 
+        */
         target: {
           type: Object,
-          value: null,
         },
       },
 
@@ -135,15 +143,20 @@ A LRN element
        * toggles the animation based on current state
        */
       toggleAnimation: function(){
-        if(this.__stopped) {
+        if (this.__stopped) {
           this.__stopped = false;
           this.$.svg.style.visibility = "hidden";
-          this.$.gif.src = this.src;
+          if (this.src != null) {
+            this.$.gif.src = this.src;
+          }
           this.$.gif.alt = this.alt + ' (Stop animation.)';
-        } else {
+        }
+        else {
           this.__stopped = true;
           this.$.svg.style.visibility = "visible";
-          this.$.gif.src = this.srcWithoutAnimation;
+          if (this.srcWithoutAnimation != null) {
+            this.$.gif.src = this.srcWithoutAnimation;
+          }
           this.$.gif.alt = this.alt + ' (Play animation.)';
         }
       },
@@ -158,7 +171,7 @@ A LRN element
           'canPosition': true,
           'canEditSource': false,
           'gizmo': {
-            'title': 'Accessible GIF player',
+            'title': 'Accessible GIF',
             'description': 'Makes animated GIFs accessible.',
             'icon': 'gif',
             'color': 'grey',
@@ -196,13 +209,39 @@ A LRN element
               {
                 'property': 'alt',
                 'title': 'Alt Text',
-                'description': 'Alternative text for the image. (Required for access',
+                'description': 'Alternative text for the image.',
                 'inputMethod': 'textfield',
-                'icon': 'text-field',
+                'icon': 'accessibility',
                 'required': true,
               },
             ],
             'configure': [
+              {
+                'property': 'src',
+                'title': 'Animated GIF',
+                'description': 'The URL to your animated GIF.',
+                'inputMethod': 'textfield',
+                'icon': 'link',
+                'validationType': 'url',
+                'required': true,
+              },
+              {
+                'property': 'srcWithoutAnimation',
+                'title': 'Still Image',
+                'description': 'The URL to a still image version of your GIF.',
+                'inputMethod': 'textfield',
+                'icon': 'link',
+                'validationType': 'url',
+                'required': true,
+              },
+              {
+                'property': 'alt',
+                'title': 'Alt Text',
+                'description': 'Alternative text for the image.',
+                'inputMethod': 'textfield',
+                'icon': 'accessibility',
+                'required': true,
+              },
               {
                 'property': 'width',
                 'title': 'Width',
