@@ -4,14 +4,12 @@
 <link rel="import" href="../hax-body-behaviors/hax-body-behaviors.html">
 <link rel="import" href="../schema-behaviors/schema-behaviors.html">
 <!--
-`a11y-gif-player`
-A LRN element
+ `a11y-gif-player`
+ Play gifs in an accessible way by having the user click to play their animation.
 
 @demo demo/index.html
 
 @microcopy - the mental model for this element
- -
- -
  -
 
 -->
@@ -170,7 +168,9 @@ A LRN element
             'handles': [
               {
                 'type': 'image',
-                'url': 'source'
+                'source': 'src',
+                'source2': 'srcWithoutAnimation',
+                'alt': 'alt',
               }
             ],
             'meta': {
